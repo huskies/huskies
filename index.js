@@ -70,7 +70,7 @@ function huskies(fun){
         // Mean is first set.
         // The first parameter that determines the type of the parameter after.
         if(!options){
-            if(avgs.length === 1){ 
+            if(avgs.length === 1 && typeof avgs[0] === "object" && avgs[0] !== null){
                 options = avgs[0];
             }else{
                 options = avgs;
