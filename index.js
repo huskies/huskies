@@ -66,52 +66,90 @@ function huskies(fun){
         isSeal = true;
         // freeze options.
         optionsRepo.forEach(function(o){
-            Object.freeze(o);
+            try{Object.freeze(o)}catch(e){}
         });
         return this;
     }
     
     wrap.set = function(){
         if(isSeal) return this;
+        
+        // this middle parameter type.
+        var paramType = middles[middles.length-1].paramType;
+        
         // convert arguments to Array.
         var avgs = Array.prototype.slice.call(arguments, 0);
 
         // pop last options from optionsRepo
         var options = optionsRepo.pop();
-        // Mean is first set.
-        // The first parameter that determines the type of the parameter after.
-        if(!options){
-            if(avgs.length === 1 && typeof avgs[0] === "object" && avgs[0] !== null){
-                options = avgs[0];
-            }else{
-                options = avgs;
-            }
-        }else{
-            
-            // Array type.
-            if(Array.isArray(options)){
-                if(avgs.length === 1 && Array.isArray(avgs[0])){ 
-                    options = options.concat(avgs[0]);
-                }else{
-                    options = options.concat(avgs);
-                }
-                
-            // JSON type.
-            }else{
-                if(avgs.length === 1){
-                    for(var k in avgs){
-                        if(avgs.hasOwnProperty(k)){
-                            options[k] = avgs[k];
-                        }
-                    }
-                }else{
-                    for(var i=0,j=0,len = parseInt((avgs.length+1)/2);i<len;i++){
-                        options[avgs[j]] = avgs[j+1];
-                        j+=2;
-                    }
+
+        // merge array params to json params.
+        function arr2json(){
+           for(var i=0,j=0,len = parseInt((avgs.length+1)/2);i<len;i++){
+                options[avgs[j]] = avgs[j+1];
+                j+=2;
+           }    
+        }
+        
+        // merge json params obj.
+        function mergeJson(){
+            for(var k in avgs){
+                if(avgs.hasOwnProperty(k)){
+                    options[k] = avgs[k];
                 }
             }
         }
+        
+        switch(paramType){
+            case "single":
+                options = avgs[0];
+            break;
+            case "array":
+                if(!options){
+                    options = [];
+                }
+                options = options.concat(avgs);
+            break;
+            case "json":
+                if(!options) {
+                    options = {}
+                }
+                if(avgs.length === 1){
+                    mergeJson();
+                }else{
+                    arr2json();
+                }
+            break;
+            default:     
+                // Mean is first set.
+                // The first parameter that determines the type of the parameter after.
+                if(!options){
+                    if(avgs.length === 1 && typeof avgs[0] === "object" && avgs[0] !== null){
+                        options = avgs[0];
+                    }else{
+                        options = avgs;
+                    }                
+                }else{
+                    
+                    // Array type.
+                    if(Array.isArray(options)){
+                        if(avgs.length === 1 && Array.isArray(avgs[0])){ 
+                            options = options.concat(avgs[0]);
+                        }else{
+                            options = options.concat(avgs);
+                        }
+                        
+                    // JSON type.
+                    }else{
+                        if(avgs.length === 1){
+                            mergeJson();
+                        }else{
+                            arr2json();
+                        }
+                    }
+                }
+            break;
+        }   
         
         optionsRepo.push(options);
         

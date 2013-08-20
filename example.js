@@ -1,11 +1,13 @@
 var huskies = require("./");
 
 function num_validator(avgs,num,locals,exec){
-     if(avgs.length !== (num[0] | 2)){
+     if(avgs.length !== (num | 2)){
         throw {name:"len error",
                message:"arguments length must 3."}
      }
 }
+
+num_validator.paramType = "single";
 
 function test(name,age,id){
     console.log(name);
