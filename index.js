@@ -5,8 +5,9 @@ function huskies(fun){
     
     var middles = []
        ,globalLocals = {}
+       ,isSeal = false
        ,localsName = uuid.v1()
-       ,optionsRepo = [];
+       ,optionsRepo = []; 
     
     function wrap(){
     
@@ -40,10 +41,9 @@ function huskies(fun){
         }
         
         for(var i=0,len=middles.length;i<len && !breakExec;i++){
-
+            var options = optionsRepo[i];
             var middle = middles[i];
-            middle(args,optionsRepo[i],locals,exec);
-            
+            middle(args,options,locals,exec);
         }
         
         if(!breakExec){
@@ -55,13 +55,24 @@ function huskies(fun){
     }
     
     wrap.use = function(middle){
+        if(isSeal) return this;
         middles.push(middle);
         optionsRepo.push(undefined);
         return this;
     }
     
+    wrap.seal = function(){
+        if(isSeal) return this;
+        isSeal = true;
+        // freeze options.
+        optionsRepo.forEach(function(o){
+            Object.freeze(o);
+        });
+        return this;
+    }
+    
     wrap.set = function(){
-        
+        if(isSeal) return this;
         // convert arguments to Array.
         var avgs = Array.prototype.slice.call(arguments, 0);
 

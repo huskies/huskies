@@ -11,7 +11,7 @@ Install
 
 version
 =======
-0.0.6
+0.0.7
     
 API
 ===
@@ -21,6 +21,7 @@ var wrap = huskies(method)
           .set(...)
           .use(middle2)
           .set(...)
+          .seal();
 ```          
 
 How write middle
@@ -31,7 +32,7 @@ Example:
 ```javascript
 function middle(avgs,options,locals,exec){
     // avgs is arguments array object.
-    // options is wrap.set() args.
+    // options is wrap.set() args , is only read.
     // locals is share data .
     // exec(false) break default execute and break after middles.
     // exec(avgs) in advance of the function.
@@ -58,6 +59,7 @@ var wrap =
     huskies(test)
    .use(num_validator)
    .set(3); // if set 3 , then no throw , otherwise throw error.
+   .seal(); // if call , cann't use use/set ,and let options only read.
    
    wrap("leo",25,"id001");
 ```
