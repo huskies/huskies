@@ -47,7 +47,7 @@ function huskies(fun){
         }
         
         if(!breakExec){
-            exec();
+            exec(args);
         }
         
         return result;

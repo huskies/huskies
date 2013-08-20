@@ -1,6 +1,6 @@
 {
   "name": "huskies",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "method or function processor before execution.",
   "main": "index.js",
   "scripts": {
