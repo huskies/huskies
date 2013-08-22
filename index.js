@@ -1,12 +1,19 @@
 module.exports = huskies;
-var uuid = require("node-uuid");
+
+var uuid;
+
+if(typeof window === 'undefined'){
+    uuid = require("node-uuid").v1;
+}else{
+    uuid = require("uuid");
+}
 
 function huskies(fun){
     
     var middles = []
        ,globalLocals = {}
        ,isSeal = false
-       ,localsName = uuid.v1()
+       ,localsName = uuid()
        ,optionsRepo = []; 
     
     function wrap(){

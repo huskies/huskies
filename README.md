@@ -4,14 +4,21 @@ method or function processor before execution.
 
 !["huskies"](http://stuffpoint.com/husky/image/50775-husky-husky-wallpaper-26.jpg)
 
-Install
-========
+Install for component
+=====================
+  
+  Install with [component(1)](http://component.io):
+
+    $ component install brighthas/huskies
+
+Install for node
+==================
 
     npm install huskies
 
 version
 =======
-0.0.7
+0.0.9
     
 API
 ===

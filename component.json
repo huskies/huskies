@@ -1,0 +1,16 @@
+{
+  "name": "huskies",
+  "repo": "brighthas/huskies",
+  "description": "method or function processor before execution.",
+  "version": "0.0.9",
+  "keywords": [],
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "dependencies": {
+    "gjohnson/uuid": "*"
+  },
+  "development": {},
+  "license": "MIT"
+}
