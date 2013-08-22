@@ -31,6 +31,11 @@ var wrap = huskies(method)
           .seal();
 ```          
 
+middleware list
+================
+* [huskies/lock](https://github.com/huskies/lock) - Lock method according to options, is huskies framework's middle
+* [huskies/strict](https://github.com/huskies/strict) - strict method ,convert and validate arguments, is huskies middleware.
+
 How write middle
 =================
 
