@@ -2,7 +2,7 @@ huskies
 =======
 method or function processor before execution.
 
-!["huskies"](http://stuffpoint.com/husky/image/50775-husky-husky-wallpaper-26.jpg)
+!["huskies"](http://images4.fanpop.com/image/photos/17400000/Siberian-Huskies-dogs-17473305-500-375.jpg)
 
 Install for component
 =====================
